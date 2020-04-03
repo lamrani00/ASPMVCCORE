@@ -12,8 +12,7 @@ namespace DAL
     {
         public ASPMVCCOREContext(DbContextOptions<ASPMVCCOREContext> options) 
             :base(options)
-        {
-
+        {           
         }
 
         public DbSet<Client> Clients { get; set; }
@@ -21,29 +20,34 @@ namespace DAL
         public DbSet<Categorie> Categories { get; set; }
         public DbSet<Produit> Produits { get; set; }
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+       {
+            if (modelBuilder != null) {  // cette n'a aucun impacte  sur le code ci-dessous
+
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<CommandeDetail>().HasKey(s => new { s.ProduitId, s.CommandeId });
-            modelBuilder.Entity<Categorie>().HasData(new Categorie { CategorieId = 1, NomCategorie = "Fruit pies",
+            modelBuilder.Entity<Categorie>().HasData(new Categorie
+            {
+                CategorieId = 1,
+                NomCategorie = "Fruit pies",
                 Description =
                     "Icing carrot cake jelly-o cheesecake. Sweet roll marzipan marshmallow toffee brownie brownie candy tootsie roll. Chocolate cake gingerbread tootsie roll oat cake pie chocolate bar cookie dragée brownie. Lollipop cotton candy cake bear claw oat cake. Dragée candy canes dessert tart. Marzipan dragée gummies lollipop jujubes chocolate bar candy canes. Icing gingerbread chupa chups cotton candy cookie sweet icing bonbon gummies. Gummies lollipop brownie biscuit danish chocolate cake. Danish powder cookie macaroon chocolate donut tart. Carrot cake dragée croissant lemon drops liquorice lemon drops cookie lollipop toffee. Carrot cake carrot cake liquorice sugar plum topping bonbon pie muffin jujubes. Jelly pastry wafer tart caramels bear claw. Tiramisu tart pie cake danish lemon drops. Brownie cupcake dragée gummies."
-           , ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/applepie.jpg"
+           ,
+                ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/applepie.jpg"
             });
-            modelBuilder.Entity<Categorie>().HasData(new Categorie { CategorieId = 2, Description = "Cheese cakes" });
-            modelBuilder.Entity<Categorie>().HasData(new Categorie { CategorieId = 3, Description = "Seasonal pies" });
+            modelBuilder.Entity<Categorie>().HasData(new Categorie { CategorieId = 2, NomCategorie = "Cheese cakes", Description = "" });
+            modelBuilder.Entity<Categorie>().HasData(new Categorie { CategorieId = 3, NomCategorie = "Seasonal pies", Description = "" });
             modelBuilder.Entity<Produit>().HasData(new Produit
             {
                 ProduitId = 1,
                 Designation = "Apple Pie",
                 Prix = 12.95,
-                DateExpiration = DateTime.Parse( "23/03/2021"),
+                DateExpiration = DateTime.Parse("23/03/2021"),
                 QteStock = 100,
-                CategorieId = 1        
+                CategorieId = 1
             });
             modelBuilder.Entity<Produit>().HasData(new Produit
-            {             
+            {
                 ProduitId = 2,
                 Designation = "Blueberry Cheese Cake",
                 Prix = 20,
@@ -58,7 +62,7 @@ namespace DAL
                 Prix = 70,
                 DateExpiration = DateTime.Parse("16/10/2020"),
                 QteStock = 300,
-                CategorieId=1
+                CategorieId = 1
             });
             modelBuilder.Entity<Produit>().HasData(new Produit
             {
@@ -69,6 +73,8 @@ namespace DAL
                 QteStock = 200,
                 CategorieId = 3
             });
+        }
+        
         }
     }
 }

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<BLL.Produit>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Bienvenue dans votre magasin enligne </h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProduitId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Designation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prix)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateExpiration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QteStock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategorieId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProduitId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Designation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prix)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateExpiration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QteStock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategorieId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,6 +1,8 @@
+using BLL;
 using DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -19,7 +21,19 @@ namespace WebCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ASPMVCCOREContext>();
+            services.AddDbContext<ASPMVCCOREContext>(
+                options =>
+                {
+                              //        options.UseInMemoryDatabase("ASPMVCCOREContext");
+  options.UseSqlServer(Configuration.GetConnectionString("SQLcon"));
+                    options.EnableSensitiveDataLogging();
+                }
+                );
+
+            //services.AddScoped<ICategorieRep, CategorieRep>();
+            //services.AddScoped<IRepository<Categorie>,Repository<Categorie>>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddControllersWithViews();  //services.AddMvc(); n'est pas encore deprecated
         }
 
@@ -46,11 +60,16 @@ namespace WebCore
 
             app.UseEndpoints(endpoints =>
             {
+
+                //endpoints.MapDefaultControllerRoute();
                 endpoints.MapControllerRoute(
-                    name:"default",
-                    pattern:"{controller=Home}/{action=Index}/{id?} "
-                    );
-        });
+                   name: "default",
+                   pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                //endpoints.MapRazorPages();
+
+
+            });
         }
     }
 }

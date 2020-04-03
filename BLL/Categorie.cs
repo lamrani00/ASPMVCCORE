@@ -6,10 +6,10 @@ namespace BLL
 {
     public class Categorie
     {
-        public Categorie()
-        {
-            Produits = new List<Produit>();
-        }
+        //public Categorie()
+        //{
+        //    Produits = new List<Produit>();
+        //}
         public int CategorieId { get; set; }
         public string NomCategorie { get; set; }
         public string Description { get; set; }
